@@ -94,19 +94,19 @@ def is_accepted_by_dfa(dfa, initial_state, input_string,match_all):
         # if we have a . 
         if match_all:
             # we check first the entry for itself
-            next_state = dfa["transition_function"][current_state][symbol]
-            # if it's phi we try the . 
-            if next_state=="phi":
+            try:
+                next_state = dfa["transition_function"][current_state][symbol]
+                if next_state=="phi":
+                    return False
+                else: 
+                    current_state=next_state
+            except KeyError:# if it's phi we try the . 
                 next_state=dfa["transition_function"][current_state]['.']
                 if next_state=="phi":
-                    return False 
+                        return False 
                 else :
-                    current_state=next_state
-            else: 
-                current_state=next_state
-
-            if current_state=="phi":
-                return False
+                        current_state=next_state
+                
             
             
         else:
@@ -126,16 +126,8 @@ def is_accepted_by_dfa(dfa, initial_state, input_string,match_all):
 
 if __name__ == "__main__":
     #reg_exp = "a(a+b)*b"
-    reg_exp="a.*b"
-    print()
-    print("*****************************************************")
-    print("Generating NFA from the regex...")
-    print("*****************************************************")
+    reg_exp="foo.bar"
     nfa = regex_to_nfa(reg_exp)
-    print()
-    print("*****************************************************")
-    print("Generating DFA from NFA...")
-    print("*****************************************************")
     dfa = nfa_to_dfa(nfa)
 
     print()
@@ -145,7 +137,7 @@ if __name__ == "__main__":
     draw_dfa(dfa, reg_exp)
 
     print()
-    input_string="aaab"
+    input_string="fooxbar"
     accepted = is_accepted_by_dfa(dfa, dfa["initial_state"], input_string,True)
     print(f"Input '{input_string}' is accepted by the DFA: {accepted}")
     #draw_dfa(dfa, reg_exp)
