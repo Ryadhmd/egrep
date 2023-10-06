@@ -4,6 +4,7 @@ from kmp import calcul_carryOver, match, optimize_carryOver
 import nfa_to_dfa
 
 import regex_to_nfa
+from visual_utils import draw_dfa
 
 def is_Regex(input_string):
     # Define a regular expression pattern that matches any of the characters ()|.*
@@ -33,9 +34,11 @@ def grep_string_in_file(pattern: str, file_path):
                 print("*****************************************************")
                 print("Generating the graph...")
                 print("*****************************************************")
+                draw_dfa(dfa, pattern)
                 for line_number, line in enumerate(file, start=1):
-                    for word in line: 
-                        if nfa_to_dfa.is_accepted_by_dfa(dfa, dfa["initial_state"],word,re.search(re.escape('.'),word)):
+                    words = line.split()
+                    for word in words: 
+                        if nfa_to_dfa.is_accepted_by_dfa(dfa, dfa["initial_state"],word,re.search(re.escape('.'),pattern)):
                             print(f"{file_path}:{line_number}: {line.strip()}")
             else: 
                 for line_number, line in enumerate(file, start=1):

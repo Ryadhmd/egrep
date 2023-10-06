@@ -89,7 +89,6 @@ def nfa_to_dfa(nfa):
 
 def is_accepted_by_dfa(dfa, initial_state, input_string,match_all):
     current_state = initial_state
-
     for symbol in input_string:
         # if we have a . 
         if match_all:
@@ -106,9 +105,6 @@ def is_accepted_by_dfa(dfa, initial_state, input_string,match_all):
                         return False 
                 else :
                         current_state=next_state
-                
-            
-            
         else:
             if symbol not in dfa["alphabets"]:
                 return False
@@ -117,11 +113,7 @@ def is_accepted_by_dfa(dfa, initial_state, input_string,match_all):
                 return False
             current_state = dfa["transition_function"][current_state][symbol]
 
-
     return current_state in dfa["final_states"]
-
-
-        
 
 
 if __name__ == "__main__":

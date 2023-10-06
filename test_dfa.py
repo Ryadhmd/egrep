@@ -11,7 +11,7 @@ from regex_to_nfa import regex_to_nfa
     ("x|y|z*", "xyz", False, False),
     ("x|y|z*","zzzzzzz",False,True),  
     ("fo.b", "foxb", True, True), 
-    ("c.*e", "cdfe", True, True),   
+    ("c.*e", "cdfe", True, True),
 ])
 def test_is_accepted_by_dfa(regex, input_string, match_all, expected_result):
     nfa = regex_to_nfa(regex)
