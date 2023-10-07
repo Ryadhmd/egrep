@@ -1,5 +1,6 @@
 import sys
 import re
+import argparse
 from kmp import calcul_carryOver, match, optimize_carryOver
 import nfa_to_dfa
 
@@ -16,7 +17,7 @@ def is_Regex(input_string):
     else:
         return False
     
-def grep_string_in_file(pattern: str, file_path):
+def grep_string_in_file(pattern: str, file_path,graph: bool):
     try:
         with open(file_path, 'r') as file:
             if is_Regex(pattern):
@@ -34,7 +35,8 @@ def grep_string_in_file(pattern: str, file_path):
                 print("*****************************************************")
                 print("Generating the graph...")
                 print("*****************************************************")
-                draw_dfa(dfa, pattern)
+                if graph:
+                    draw_dfa(dfa, pattern)
                 for line_number, line in enumerate(file, start=1):
                     words = line.split()
                     for word in words: 
@@ -53,9 +55,13 @@ def grep_string_in_file(pattern: str, file_path):
         #print(f"Une erreur s'est produite : {e}")
 
 if __name__ == "__main__":
-    if len(sys.argv) != 3:
-        print("Utilisation : python grep_similaire.py <chaîne> <fichier>")
-    else:
-        pattern = sys.argv[1]
-        file_path = sys.argv[2]
-        grep_string_in_file(pattern, file_path)
+    parser = argparse.ArgumentParser(description="Search for a string in a file with an optional --graph option.")
+    parser.add_argument("pattern", help="The string to search for.")
+    parser.add_argument("file_path", help="The path to the file.")
+    parser.add_argument("--graph", action="store_true", help="Include this option to enable graph functionality.")
+
+    args = parser.parse_args()
+    if args.graph :
+        grep_string_in_file(args.pattern,args.file_path,True)
+    else: 
+        grep_string_in_file(args.pattern,args.file_path,False)
