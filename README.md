@@ -32,3 +32,8 @@ du fichier contiennent le motif recherché.
 
    ```shell
    python grep.py [motif] [chemin_du_fichier] [--graph]
+
+4. Si vous voulez executer les tests :
+   ```shell
+   cd tests/
+   pytest 
