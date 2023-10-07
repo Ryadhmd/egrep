@@ -28,12 +28,21 @@ du fichier contiennent le motif recherché.
    git clone https://github.com/Ryadhmd/egrep.git
    cd egrep/
 ```
-3. Utilisez le script en exécutant la commande suivante depuis le terminal :
+
+3. Installez les dépendances du projet:
+   ```shell
+   pip3 install -r requirements.txt
+
+4. Installez le package graphviz :
+   ```shell
+   sudo apt install graphviz
+   
+5. Utilisez le script en exécutant la commande suivante depuis le terminal :
 
    ```shell
    python grep.py [motif] [chemin_du_fichier] [--graph]
 
-4. Si vous voulez executer les tests :
+6. Si vous voulez executer les tests :
    ```shell
    cd tests/
    pytest 
